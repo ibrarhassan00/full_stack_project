@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter , Route , Routes , Navigate} from "react-router-dom"
-import GoogleLogin from './Componenets/GoogleLogin'
+import GoogleLogin from './pages/authaetication'
 import Dashboard from './Componenets/Dashboard'
 import PageNoteFound from './pages/page_not_found'
 import {GoogleOAuthProvider} from '@react-oauth/google'

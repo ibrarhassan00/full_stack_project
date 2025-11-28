@@ -1,11 +1,27 @@
 import React from 'react'
 import {useGoogleLogin} from "@react-oauth/google";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
 const GoogleLogin = () => {
-  
+  const navigate = useNavigate();
   const responseGoogle = async (authResult)=>{
     try {
-      console.log(authResult);
+      if(authResult['code']){
+        // console.log(import.meta.env.VITE_BASE_URL);
+        
+     const result = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/google?code=${authResult.code}`)
+
+     const {email, name, image} = result.data.user;
+				const token = result.data.token;
+				const obj = {email,name, token, image};
+				localStorage.setItem('user-info',JSON.stringify(obj));
+				navigate('/dashboard');
+    
+      }else{
+        console.log(authResult);
+				throw new Error(authResult);
+      }
+      // console.log(authResult);
       
     } catch (error) {
       console.log("Error Requesting Google Code" , error.message);
